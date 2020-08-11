@@ -1,0 +1,39 @@
+{
+  "name": "thumbdrive",
+  "version": "1.0.0",
+  "description": "A small tool to help the memory impaired. Intended to aid in stroke recovery.",
+  "main": "app.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DuskEcho/ThumbDrive.git"
+  },
+  "author": "DuskEcho",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/DuskEcho/ThumbDrive/issues"
+  },
+  "homepage": "https://github.com/DuskEcho/ThumbDrive#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "chai": "^4.2.0",
+    "ejs": "^3.1.3",
+    "express": "^4.17.1",
+    "google-auth-library": "^6.0.6",
+    "googleapis": "^58.0.0",
+    "heroku-ssl-redirect": "^0.1.1",
+    "memorystore": "^1.6.2",
+    "mocha": "^8.1.1",
+    "moment": "^2.27.0",
+    "mysql": "^2.18.1",
+    "nock": "^13.0.4",
+    "nodemon": "^2.0.4",
+    "request": "^2.88.2",
+    "sinon": "^9.0.3"
+  }
+}
