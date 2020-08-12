@@ -3,6 +3,8 @@ import Interface from './user/Interface'
 import React from 'react'
 import Report from "./user/Report";
 
+const e = React.createElement;
+
 class App extends React.Component {
     constructor(props) {
         super(props);
@@ -21,5 +23,5 @@ class App extends React.Component {
     }
 }
 
-const domContainer = document.querySelector('#loginButtonContainer');
-ReactDOM.render(e(LikeButton), domContainer);
+const domContainer = document.querySelector('#app');
+ReactDOM.render(e(App), domContainer);
