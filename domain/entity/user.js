@@ -1,11 +1,11 @@
 'use strict';
-module.exports = class Jabs{
+module.exports = class User{
 
-    constructor(id, date, type){
+    constructor(id, email, userType){
         //upon finishing population of object, send to database.
         //any validity checks will have to occur prior to this.
         this.id = id;
-        this.date = date;
-        this.type = type;
+        this.email = email;
+        this.user_type = userType;
     }
 };

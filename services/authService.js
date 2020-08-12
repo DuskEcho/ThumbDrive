@@ -1,12 +1,12 @@
+
+
 const util = require('util');
 const request = util.promisify(require('request'));
-const {logCaughtError} = require('../util.js');
 const authRepo = require('../repositories/authRepo.js');
 const {OAuth2Client} = require('google-auth-library');
 const moment = require('moment');
 const clientId = process.env.GOOGLE_CLIENT_ID;
 const client = new OAuth2Client(clientId);
-const compare = util.promisify(require('bcrypt').compare);
 const SESSION_LENGTH_DAYS = 7;
 
 
@@ -35,10 +35,36 @@ class AuthService {
             return  false;
         }
         console.log("Let's see if you are a user...");
-        let email = await this.getEmailFromToken(creds).catch(err => logCaughtError(err));
-        return await this.emailIsUser(email).catch(err => logCaughtError(err));
+        let email = await this.getEmailFromToken(creds).catch(err => console.log(err));
+        return await this.emailIsUser(email).catch(err => console.log(err));
     }
 
+    async getUserFromEmail(email){
+        let response = await request({
+            method: 'POST',
+            uri: `${process.env.TWINBEE_URL}/api/getAllUsers`,
+            form: {
+                'auth': process.env.TWINBEE_MASTER_AUTH
+            }
+        }).catch(err => console.log(err));
+
+        let users;
+        try{
+            users = JSON.parse(response.body);
+        }
+        catch (e) {
+            console.log(e);
+            users = [];
+        }
+
+        for (let user of users){
+            if (user.email.toString() === email.toString()){
+                return user;
+            }
+        }
+
+        return {id: "Not found", email: "Not found", userType: "Not found"};
+    }
 
     /**
      * Determines if the given email is on the list of users
@@ -56,7 +82,7 @@ class AuthService {
             form: {
                 'auth': process.env.TWINBEE_MASTER_AUTH
             }
-        }).catch(err => logCaughtError(err));
+        }).catch(err => console.log(err));
 
         let users;
         try{
@@ -64,8 +90,8 @@ class AuthService {
         }
         catch (e) {
             let tracer = new Error();
-            logCaughtError(e);
-            logCaughtError(tracer.stack);
+            console.log(e);
+            console.log(tracer.stack);
             return false;
         }
 
@@ -108,13 +134,13 @@ class AuthService {
             return  false;
         }
         console.log("Let's see if you are a user...");
-        let email = await authRepo.getEmailFromSession(session.thumbdriveId).catch(err => logCaughtError(err));
-        return await this.emailIsUser(email).catch(err => logCaughtError(err));
+        let email = await authRepo.getEmailFromSession(session.thumbdriveId).catch(err => console.log(err));
+        return await this.emailIsUser(email).catch(err => console.log(err));
     }
 
 
     async grabUserSession(email){
-        return await authRepo.getSessionByEmail(email).catch(err => logCaughtError(err));
+        return await authRepo.getSessionByEmail(email).catch(err => console.log(err));
     }
 
     async sessionIsValid(session){
@@ -150,17 +176,16 @@ class AuthService {
         const ticket = await client.verifyIdToken({
             idToken: token,
             audience: clientId
-        }).catch(err => logCaughtError(err));
+        }).catch(err => console.log(err));
         if (ticket) {
             return ticket.getPayload();
         }
         let message = `Failed to grab email from token. Google's result was ${JSON.stringify(ticket)}`;
         let tracer = new Error();
 
-        logCaughtError(message);
-        logCaughtError(tracer.stack);
+        console.log(message);
+        console.log(tracer.stack);
         return false;
-
     }
 
     /**
@@ -172,7 +197,7 @@ class AuthService {
         console.log(`Getting email from session with id ${session.twinbeeId}...`);
         let email;
         email = await authRepo.getEmailFromSession(session.twinbeeId).catch(error => {
-            logCaughtError(error);
+            console.log(error);
             email = false;
         });
 

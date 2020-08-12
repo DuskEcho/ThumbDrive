@@ -20,10 +20,13 @@
   },
   "homepage": "https://github.com/DuskEcho/ThumbDrive#readme",
   "dependencies": {
+    "@slack/web-api": "^5.11.0",
+    "bcrypt": "^5.0.0",
     "body-parser": "^1.19.0",
     "chai": "^4.2.0",
     "ejs": "^3.1.3",
     "express": "^4.17.1",
+    "express-session": "^1.17.1",
     "google-auth-library": "^6.0.6",
     "googleapis": "^58.0.0",
     "heroku-ssl-redirect": "^0.1.1",
@@ -33,6 +36,7 @@
     "mysql": "^2.18.1",
     "nock": "^13.0.4",
     "nodemon": "^2.0.4",
+    "react": "^16.13.1",
     "request": "^2.88.2",
     "sinon": "^9.0.3"
   }

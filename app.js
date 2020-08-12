@@ -9,7 +9,9 @@ const MemoryStore = require('memorystore')(session);
 const landingPageController = require('./controllers/landingPageController.js');
 const userPageController = require('./controllers/userPageController.js');
 const authController = require('./controllers/authController.js');
+const userRestController = require('./controllers/userRestController.js');
 const authRestController = require('./controllers/authRestController.js');
+const jabRestController = require('./controllers/jabRestController.js');
 
 
 //configurations
@@ -22,7 +24,7 @@ app.set('ip',  process.env.IP || "0.0.0.0");
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
-app.use(sslRedirect());
+//app.use(sslRedirect());
 app.use(session({
     cookie: { maxAge: ONE_DAY_IN_SECONDS },
     store: new MemoryStore({
@@ -51,6 +53,24 @@ app.post("/api/dereferenceToken",
 app.post("/api/dereferenceSession",
     authController.authorizeMaster,
     authRestController.getEmailFromCookie);
+app.post("/api/tokenToEmail",
+    authController.authorizeMaster,
+    authController.tokenToEmail);
+app.post("/api/getAllUsers",
+    authController.authorizeMaster,
+    userRestController.getAllUsers);
+app.post("/api/getUser",
+    authController.authorizeMaster,
+    userRestController.getUser());
+app.post("/api/createJab",
+    authController.authorizeMaster,
+    jabRestController.createJab);
+app.post("/api/getJabsByUser",
+    authController.authorizeMaster,
+    jabRestController.getJabsByUser);
+app.post("/api/tokenToEmail",
+    authController.authorizeMaster,
+    authController.tokenToEmail);
 app.post("/api/tokenToEmail",
     authController.authorizeMaster,
     authController.tokenToEmail);
