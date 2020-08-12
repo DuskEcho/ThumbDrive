@@ -9,15 +9,11 @@ class LikeButton extends React.Component {
     }
 
     render() {
-        if (this.state.liked) {
-            return 'You liked this.';
-        }
-
         return e(
             'button',
             { onClick: () =>
                     window.location.replace(`/login?token=${id_token}`) },
-            'Like'
+            'Log In'
         );
     }
 }
