@@ -1,6 +1,6 @@
 'use strict';
-import LogButton from "./LogButton";
-import Dropdown from "./Dropdown";
+import LogButton from "./LogButton.jsx";
+import Dropdown from "./Dropdown.jsx";
 import React from 'react'
 
 class Interface extends React.Component {

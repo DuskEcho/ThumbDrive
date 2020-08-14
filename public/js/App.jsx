@@ -1,7 +1,7 @@
 'use strict';
-import Interface from './user/Interface'
+import Interface from './user/Interface.jsx'
 import React from 'react'
-import Report from "./user/Report";
+import ReactDOM from 'react-dom'
 
 const e = React.createElement;
 
@@ -13,15 +13,12 @@ class App extends React.Component {
 
     render() {
         return (<div>
-            <Interface onSubmit={} type={"Med"} dropdownRoute={} dropdownData={}/>
-            <Interface onSubmit={} type={"Jab"} dropdownRoute={} dropdownData={}/>
-            <Interface onSubmit={} type={"Reading"} dropdownRoute={} dropdownData={}/>
-            <Report dataRoute={} dataData={}/>
-            <Report dataRoute={} dataData={}/>
-            <Report dataRoute={} dataData={}/>
+            <Interface type={"Med"} /* onSubmit={} dropdownRoute={} dropdownData={}*//>
+            <Interface type={"Jab"} /* onSubmit={} dropdownRoute={} dropdownData={}*//>
+            <Interface type={"Reading"} /* onSubmit={} dropdownRoute={} dropdownData={}*//>
         </div>);
     }
 }
 
-const domContainer = document.querySelector('#app');
+const domContainer = document.getElementById('app');
 ReactDOM.render(e(App), domContainer);

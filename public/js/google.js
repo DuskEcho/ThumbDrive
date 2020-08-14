@@ -6,65 +6,65 @@ var id_token = null;
 function signOut() {
     var auth2 = gapi.auth2.getAuthInstance();
     console.log('User signed out.');
-    auth2.currentUser.get().disconnect()
+    auth2.currentUser.get().disconnect();
     auth2.disconnect();
     window.location.replace('/');
 }
 
-//Google
-onSignIn = function (googleUser) {
-    id_token = TEST_ENVIRONMENT ? null : googleUser.getAuthResponse().id_token;
-    GOOGLE_USER = googleUser;
-    let profile = TEST_ENVIRONMENT ? null : googleUser.getBasicProfile();
-    let name = TEST_ENVIRONMENT ? null : profile.getName();
-    $("#googleUser").html(TEST_ENVIRONMENT ? "test" : name);
-};
-
-/**
- * Wrapper for the google token verification process. Limited use;
- * data will always be the id token and nothing else.
- *
- * @param route - api route to send token to
- * @param callback  - ajax "success" function taking 2 parameters; res and status
- */
-function googleUserAction(route, callback = null,) {
-    var id_token = GOOGLE_USER.getAuthResponse().id_token;
-
-    $.ajax({
-        type: "post",
-        url: route,
-        contentType: 'application/json',
-        data: JSON.stringify({"idtoken": id_token}),
-        success: function (res, status) {
-            if (callback != null) {
-                callback(res, status)
-            }
-        }
-    })
-}
-
-function refreshGoogle() {
-    console.log(`Token expires in: ${GOOGLE_USER.expires_in} seconds.\n refreshing.`);
-    gapi.auth2.getAuthInstance().currentUser.get().reloadAuthResponse()
-        .then(function () {
-            GOOGLE_USER = gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse();
-            id_token = GOOGLE_USER.id_token;
-            console.log(`Token refreshed. New token expires in: ${GOOGLE_USER.expires_in} seconds.`);
-            setTimeout(refreshGoogle, 2400000);
-        });
-}
-
-
-function init() {
-    gapi.auth2.init().then(function () {
-        console.log("Google initializing...");
-        GOOGLE_USER = gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse();
-        id_token = GOOGLE_USER.id_token;
-        console.log(`Signed in. Token expires in: ${GOOGLE_USER.expires_in} seconds.`);
-
-        //refresh tokens before timeout
-        var timeToRefresh = Math.max((GOOGLE_USER.expires_in - 30) * 1000, 1000);
-        console.log(`Refreshing token in ${timeToRefresh / 1000} seconds.`);
-        setTimeout(refreshGoogle, timeToRefresh);
-    });
-}
+// //Google
+// onSignIn = function (googleUser) {
+//     id_token = TEST_ENVIRONMENT ? null : googleUser.getAuthResponse().id_token;
+//     GOOGLE_USER = googleUser;
+//     let profile = TEST_ENVIRONMENT ? null : googleUser.getBasicProfile();
+//     let name = TEST_ENVIRONMENT ? null : profile.getName();
+//     $("#googleUser").html(TEST_ENVIRONMENT ? "test" : name);
+// };
+//
+// /**
+//  * Wrapper for the google token verification process. Limited use;
+//  * data will always be the id token and nothing else.
+//  *
+//  * @param route - api route to send token to
+//  * @param callback  - ajax "success" function taking 2 parameters; res and status
+//  */
+// function googleUserAction(route, callback = null,) {
+//     var id_token = GOOGLE_USER.getAuthResponse().id_token;
+//
+//     $.ajax({
+//         type: "post",
+//         url: route,
+//         contentType: 'application/json',
+//         data: JSON.stringify({"idtoken": id_token}),
+//         success: function (res, status) {
+//             if (callback != null) {
+//                 callback(res, status)
+//             }
+//         }
+//     })
+// }
+//
+// function refreshGoogle() {
+//     console.log(`Token expires in: ${GOOGLE_USER.expires_in} seconds.\n refreshing.`);
+//     gapi.auth2.getAuthInstance().currentUser.get().reloadAuthResponse()
+//         .then(function () {
+//             GOOGLE_USER = gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse();
+//             id_token = GOOGLE_USER.id_token;
+//             console.log(`Token refreshed. New token expires in: ${GOOGLE_USER.expires_in} seconds.`);
+//             setTimeout(refreshGoogle, 2400000);
+//         });
+// }
+//
+//
+// function init() {
+//     gapi.auth2.init().then(function () {
+//         console.log("Google initializing...");
+//         GOOGLE_USER = gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse();
+//         id_token = GOOGLE_USER.id_token;
+//         console.log(`Signed in. Token expires in: ${GOOGLE_USER.expires_in} seconds.`);
+//
+//         //refresh tokens before timeout
+//         var timeToRefresh = Math.max((GOOGLE_USER.expires_in - 30) * 1000, 1000);
+//         console.log(`Refreshing token in ${timeToRefresh / 1000} seconds.`);
+//         setTimeout(refreshGoogle, timeToRefresh);
+//     });
+// }

@@ -61,7 +61,7 @@ app.post("/api/getAllUsers",
     userRestController.getAllUsers);
 app.post("/api/getUser",
     authController.authorizeMaster,
-    userRestController.getUser());
+    userRestController.getUser);
 app.post("/api/createJab",
     authController.authorizeMaster,
     jabRestController.createJab);
