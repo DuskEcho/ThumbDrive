@@ -7,8 +7,14 @@ class Dropdown extends React.Component {
     }
 
     generateOptions(){
-        //run ajax with state ajax data to get dropdown data
+        fetch()
+        let options = [];
+        for (let option of this.props.options){
+            options.push(<option value={option.value}>{option.text}</option>)
+        }
+        return options;
     }
+
 
     onChange(){
         //???

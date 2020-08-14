@@ -21,7 +21,7 @@ class AuthService {
      * @returns {Promise<boolean>}
      */
     async accessorIsMaster(creds) {
-        return creds === process.env.TWINBEE_MASTER_AUTH;
+        return creds === process.env.THUMBDRIVE_MASTER_AUTH;
     }
 
 
@@ -31,7 +31,7 @@ class AuthService {
      * @returns {Promise<boolean>}
      */
     async accessorIsUser(creds) {
-        if (creds === process.env.TWINBEE_MASTER_AUTH) {
+        if (creds === process.env.THUMBDRIVE_MASTER_AUTH) {
             return  false;
         }
         console.log("Let's see if you are a user...");
@@ -42,9 +42,9 @@ class AuthService {
     async getUserFromEmail(email){
         let response = await request({
             method: 'POST',
-            uri: `${process.env.TWINBEE_URL}/api/getAllUsers`,
+            uri: `${process.env.THUMBDRIVE_URL}/api/getAllUsers`,
             form: {
-                'auth': process.env.TWINBEE_MASTER_AUTH
+                'auth': process.env.THUMBDRIVE_MASTER_AUTH
             }
         }).catch(err => console.log(err));
 
@@ -78,9 +78,9 @@ class AuthService {
         }
         let response = await request({
             method: 'POST',
-            uri: `${process.env.TWINBEE_URL}/api/getAllUsers`,
+            uri: `${process.env.THUMBDRIVE_URL}/api/getAllUsers`,
             form: {
-                'auth': process.env.TWINBEE_MASTER_AUTH
+                'auth': process.env.THUMBDRIVE_MASTER_AUTH
             }
         }).catch(err => console.log(err));
 
@@ -130,7 +130,7 @@ class AuthService {
      * @returns {Promise<boolean>}
      */
     async sessionIsUser(session, creds) {
-        if (creds === process.env.TWINBEE_MASTER_AUTH) {
+        if (creds === process.env.THUMBDRIVE_MASTER_AUTH) {
             return  false;
         }
         console.log("Let's see if you are a user...");
@@ -168,7 +168,7 @@ class AuthService {
     }
 
     async getPayloadFromToken(token){ console.log("getting email from token:");
-        if (token === process.env.TWINBEE_MASTER_AUTH){
+        if (token === process.env.THUMBDRIVE_MASTER_AUTH){
             console.log("Master auth, no email associated.");
             return;
         }
@@ -194,9 +194,9 @@ class AuthService {
      * @returns {Promise<string|boolean>}
      */
     async getEmailFromCookie(session) {
-        console.log(`Getting email from session with id ${session.twinbeeId}...`);
+        console.log(`Getting email from session with id ${session.thumbdriveId}...`);
         let email;
-        email = await authRepo.getEmailFromSession(session.twinbeeId).catch(error => {
+        email = await authRepo.getEmailFromSession(session.thumbdriveId).catch(error => {
             console.log(error);
             email = false;
         });

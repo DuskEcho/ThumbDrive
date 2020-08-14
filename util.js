@@ -100,9 +100,9 @@ module.exports = {
     dereferenceToken: async (token) =>{
         let response = await request({
             method: 'POST',
-            uri: `${process.env.TWINBEE_URL}/api/dereferenceToken`,
+            uri: `${process.env.THUMBDRIVE_URL}/api/dereferenceToken`,
             form: {
-                'auth': process.env.TWINBEE_MASTER_AUTH,
+                'auth': process.env.THUMBDRIVE_MASTER_AUTH,
                 'token': token
             }
         }).catch(err => console.log(err));
@@ -115,9 +115,9 @@ module.exports = {
         console.log(session);
         let response = await request({
             method: 'POST',
-            uri: `${process.env.TWINBEE_URL}/api/dereferenceSession`,
+            uri: `${process.env.THUMBDRIVE_URL}/api/dereferenceSession`,
             form: {
-                'auth': process.env.TWINBEE_MASTER_AUTH,
+                'auth': process.env.THUMBDRIVE_MASTER_AUTH,
                 'session': JSON.stringify(session)
             }
         }).catch(err => console.log(err));

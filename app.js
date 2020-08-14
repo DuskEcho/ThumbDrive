@@ -32,7 +32,7 @@ app.use(session({
     }),
     rolling: true,
     key: 'thumbdriveSession',
-    secret: process.env.SESSION_SECRET,
+    secret: process.env.THUMBDRIVE_SESSION_SECRET,
     resave: true,
     saveUninitialized: true
 }));
