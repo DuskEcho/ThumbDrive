@@ -1,9 +1,97 @@
 
 
 body {
-    position: relative;
     width: 100vw;;
     height: 100vh;
-    color: #32444e;
-    background-color: #32444e;
+}
+
+/* special thanks to github user @dollybuzz for userOptions and abcRioButton css design! */
+#userOptions>.g-signin2>.abcRioButton{
+    margin-right: 0 !important;
+    margin-left: auto !important;
+}
+
+.abcRioButton{
+    display: block;
+    margin: 0 auto;
+    border-radius: 10px;
+}
+#userOptions {
+    text-align: right;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+header{
+
+}
+
+#center-content{
+    margin: 0 auto;
+    max-width: 1000px;
+    background: linear-gradient(rgba(255,255,255,0), rgba(255,255,255,.4), rgba(255,255,255,.4), rgba(255,255,255,.4),  rgba(255,255,255,.4), rgba(255,255,255,.4), rgba(255,255,255,.4),  rgba(255,255,255,.4), rgba(255,255,255,.4), rgba(255,255,255,.4),  rgba(255,255,255,.4), rgba(255,255,255,.4), rgba(255,255,255,.4),  rgba(255,255,255,.4), rgba(255,255,255,.4), rgba(255,255,255,.4),  rgba(255,255,255,.4), rgba(255,255,255,.4), rgba(255,255,255,.4),  rgba(255,255,255,.4), rgba(255,255,255,.4), rgba(255,255,255,.4),  rgba(255,255,255,.4), rgba(255,255,255,.4), rgba(255,255,255,.4),  rgba(255,255,255,.4), rgba(255,255,255,.4), rgba(255,255,255,.4), rgba(255,255,255,0));
+
+}
+
+.type-select {
+    height: 8vh;
+    font-size: xx-large;
+    display: inline;
+    margin-left: 10vw;
+    width: min-content;
+}
+
+.btn-circle{
+    border-radius: 100%;
+    font-size: x-large;
+    width: 7vw;
+    height: 7vw;
+}
+
+.interface{
+    margin-bottom: 8vh;
+}
+@media screen and (max-width: 1000px) {
+
+    #headContainer{
+        opacity: .2;
+        height: 200px;
+    }
+
+    .type-select {
+        height: 10vh;
+        font-size: xxx-large;
+        display: inline;
+        margin-left: 10vw;
+        width: min-content;
+    }
+
+    .btn-circle{
+        border-radius: 100%;
+        font-size: xxx-large;
+        width: 30vw;
+        height: 30vw;
+    }
+
+    .interface{
+        margin-bottom: 8vh;
+        margin-top: 8vh;
+    }
+
+    /* special thanks to github user @dollybuzz for userOptions and abcRioButton css design! */
+    #userOptions>.g-signin2>.abcRioButton{
+        margin-right: 0 !important;
+        margin-left: auto !important;
+    }
+
+    .abcRioButton{
+        display: block;
+        margin: 0 auto;
+        border-radius: 10px;
+    }
+    #userOptions {
+        font-size: xx-large;
+        text-align: right;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
 }

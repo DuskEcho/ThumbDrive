@@ -7,7 +7,7 @@ class LogButton extends React.Component {
     }
 
     render() {
-        return (<button onClick={this.props.action}>{this.props.text}</button>);
+        return (<button className={"btn btn-success btn-circle"} onClick={this.props.action}>{this.props.text}</button>);
     }
 }
 

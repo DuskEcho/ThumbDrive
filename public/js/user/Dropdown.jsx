@@ -15,7 +15,7 @@ class Dropdown extends React.Component {
     }
 
     render() {
-        return (<select onChange={this.onChange()}>{this.generateOptions()}</select>);
+        return (<select className={"type-select form-control"} onChange={this.onChange()}>{this.generateOptions()}</select>);
     }
 }
 
