@@ -7,12 +7,11 @@ const MemoryStore = require('memorystore')(session);
 
 //rest and routing controllers
 const landingPageController = require('./controllers/landingPageController.js');
-const userPageController = require('./controllers/userPageController.js');
 const authController = require('./controllers/authController.js');
 const userRestController = require('./controllers/userRestController.js');
 const authRestController = require('./controllers/authRestController.js');
 const jabRestController = require('./controllers/jabRestController.js');
-
+const notificationRestController = require('./controllers/notificationRestController.js');
 
 //configurations
 const thumbdriveUtil = require('./util.js');
@@ -24,7 +23,7 @@ app.set('ip',  process.env.IP || "0.0.0.0");
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
-//app.use(sslRedirect());
+app.use(sslRedirect());
 app.use(session({
     cookie: { maxAge: ONE_DAY_IN_SECONDS },
     store: new MemoryStore({
@@ -74,6 +73,9 @@ app.post("/api/tokenToEmail",
 app.post("/api/tokenToEmail",
     authController.authorizeMaster,
     authController.tokenToEmail);
+app.post("/api/notifyAdmin",
+    authController.authorizeMaster,
+    notificationRestController.notifyAdmin);
 
 (async function() {
 })();

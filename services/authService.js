@@ -5,7 +5,7 @@ const request = util.promisify(require('request'));
 const authRepo = require('../repositories/authRepo.js');
 const {OAuth2Client} = require('google-auth-library');
 const moment = require('moment');
-const clientId = process.env.GOOGLE_CLIENT_ID;
+const clientId = process.env.THUMBDRIVE_CLIENT_ID;
 const client = new OAuth2Client(clientId);
 const SESSION_LENGTH_DAYS = 7;
 

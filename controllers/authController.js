@@ -59,13 +59,12 @@ module.exports = {
 
     loginNavigation: async (req, res) => {
         let userToken = req.query.token;
-        let good = true;
-      //  let good = await authService.accessorIsUser(userToken);
+        let good = await authService.accessorIsUser(userToken);
         if (good) {
-         //   req.googlePayload = await authService.getPayloadFromToken(req.query.token);
-         //   let email = req.googlePayload['email'];
-           // let newSession = await authService.updateValidatedUserSession(email);
-          //  req.session.twinbeeId = newSession.id;
+            req.googlePayload = await authService.getPayloadFromToken(req.query.token);
+            let email = req.googlePayload['email'];
+            let newSession = await authService.updateValidatedUserSession(email);
+            req.session.twinbeeId = newSession.id;
             userPageController.renderLanding(req, res);
         } else {
             landingPageController.renderForbidden(req, res);
