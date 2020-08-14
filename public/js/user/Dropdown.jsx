@@ -7,7 +7,7 @@ class Dropdown extends React.Component {
     }
 
     generateOptions(){
-        fetch()
+        fetch("/api/")
         let options = [];
         for (let option of this.props.options){
             options.push(<option value={option.value}>{option.text}</option>)

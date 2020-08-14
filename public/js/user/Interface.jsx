@@ -13,6 +13,7 @@ class Interface extends React.Component {
             <div className={"interface"}>
                 <LogButton action={this.props.onSubmit} text={this.props.type}/>
                 <Dropdown ajaxRoute={this.props.dropdownRoute} ajaxData={this.props.dropdownData}/>
+                <input type={props.inputType}/>
             </div>
         );
     }
