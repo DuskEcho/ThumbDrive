@@ -12,7 +12,7 @@ const userRestController = require('./controllers/userRestController.js');
 const authRestController = require('./controllers/authRestController.js');
 const jabRestController = require('./controllers/jabRestController.js');
 const notificationRestController = require('./controllers/notificationRestController.js');
-
+const userPageController = require('./controllers/userPageController.js');
 //configurations
 const thumbdriveUtil = require('./util.js');
 const app = express();
@@ -23,7 +23,7 @@ app.set('ip',  process.env.IP || "0.0.0.0");
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
-app.use(sslRedirect());
+//app.use(sslRedirect());
 app.use(session({
     cookie: { maxAge: ONE_DAY_IN_SECONDS },
     store: new MemoryStore({
@@ -40,6 +40,7 @@ app.use(session({
 //page routes
 app.get("/google.html", (req, res) => {res.render("google");}); // awaiting google confirmation page
 app.get("/", landingPageController.renderLanding);
+app.get("/user", userPageController.renderLanding);
 app.get("/home", landingPageController.renderLanding);
 app.get("/landing", landingPageController.renderLanding);
 app.get("/login", authController.loginNavigation);

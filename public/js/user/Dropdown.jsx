@@ -7,21 +7,13 @@ class Dropdown extends React.Component {
     }
 
     generateOptions(){
-        fetch("/api/")
-        let options = [];
-        for (let option of this.props.options){
-            options.push(<option value={option.value}>{option.text}</option>)
-        }
         return options;
     }
 
 
-    onChange(){
-        //???
-    }
 
     render() {
-        return (<select className={"type-select form-control"} onChange={this.onChange()}>{this.generateOptions()}</select>);
+        return (<select className={"type-select form-control"} onChange={this.props.onChange}>{this.props.options}</select>);
     }
 }
 

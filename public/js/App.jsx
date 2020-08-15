@@ -13,9 +13,9 @@ class App extends React.Component {
 
     render() {
         return (<div>
-            <Interface type={"Med"} /* onSubmit={} dropdownRoute={} dropdownData={}*//>
-            <Interface type={"Jab"} /* onSubmit={} dropdownRoute={} dropdownData={}*//>
-            <Interface type={"Reading"} /* onSubmit={} dropdownRoute={} dropdownData={}*//>
+            <Interface type={"Med"}  onSubmit={()=>{console.log("Med submit action")}}/>
+            <Interface type={"Jab"}  onSubmit={()=>{console.log("Jab submit action")}}/>
+            <Interface type={"Reading"}  onSubmit={()=>{console.log("Reading submit action")}}/>
         </div>);
     }
 }
