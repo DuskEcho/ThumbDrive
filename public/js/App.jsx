@@ -8,14 +8,23 @@ const e = React.createElement;
 class App extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {
+            reportNeedsUpdate: false;
+        };
+        this.updateReport = this
+            .updateReport
+            .bind(this);
+    }
+
+    updateReport(){
+        this.state.reportNeedsUpdate = true;
     }
 
     render() {
         return (<div>
-            <Interface type={"Med"}  onSubmit={()=>{console.log("Med submit action")}}/>
-            <Interface type={"Jab"}  onSubmit={()=>{console.log("Jab submit action")}}/>
-            <Interface type={"Reading"}  onSubmit={()=>{console.log("Reading submit action")}}/>
+            <Interface type={"Jab"} dropdownOptions={(()=>{return ([<option value={"insulin16"}>Insulin 16 Units</option>, <option value={"insulin8"}>Insulin 8 Units</option>])})()}
+                       hasInput={false} onSubmit={()=>{console.log("Jab submit action")}}/>
+            <Interface type={"Reading"} hasInput={true} inputType={"number"} dropdownOptions={(()=>{return <option value={"bloodGlucose"}>Blood Glucose</option>})()} onSubmit={()=>{console.log("Reading submit action")}}/>
         </div>);
     }
 }
