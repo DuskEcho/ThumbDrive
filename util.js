@@ -147,7 +147,7 @@ module.exports = {
             method: 'POST',
             uri: `${process.env.THUMBDRIVE_URL}/api/notifyAdmin`,
             form: {
-                'auth': process.env.TWINBEE_MASTER_AUTH,
+                'auth': process.env.THUMBDRIVE_MASTER_AUTH,
                 'message': `object: ${error}\n${message}`
             }
         }).catch(err => {
@@ -161,7 +161,7 @@ module.exports = {
             method: 'POST',
             uri: `${process.env.THUMBDRIVE_URL}/api/logEvent`,
             form: {
-                'auth': process.env.TWINBEE_MASTER_AUTH,
+                'auth': process.env.THUMBDRIVE_MASTER_AUTH,
                 'message': message
             }
         }).catch(err => {
