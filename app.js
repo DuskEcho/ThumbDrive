@@ -64,22 +64,22 @@ app.post("/api/getUser",
     authController.authorizeMaster,
     userRestController.getUser);
 app.post("/api/createJab",
-    // authController.authorizeUser,
+     authController.authorizeUser,
     jabRestController.createJab);
 app.post("/api/getMyJabs",
-    //   authController.authorizeMaster,
+       authController.authorizeUser,
     jabRestController.getMyJabs);
 app.post("/api/getJabsByUser",
-    //   authController.authorizeUser,
+       authController.authorizeMaster,
     jabRestController.getJabsByUser);
 app.post("/api/createReading",
-    // authController.authorizeUser,
+     authController.authorizeUser,
     readingRestController.createReading);
 app.post("/api/getReadingsByUser",
-    //   authController.authorizeMaster,
+       authController.authorizeMaster,
     readingRestController.getReadingsByUser);
 app.post("/api/getMyReadings",
-    //   authController.authorizeUser,
+       authController.authorizeUser,
     readingRestController.getMyReadings);
 app.post("/api/tokenToEmail",
     authController.authorizeMaster,
