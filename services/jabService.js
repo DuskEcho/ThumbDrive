@@ -1,6 +1,7 @@
 const util = require('util');
 const request = util.promisify(require('request'));
 const jabRepo = require('../repositories/jabRepo.js');
+const myUtil = require('../util.js');
 
 
 class JabService {
@@ -25,6 +26,8 @@ class JabService {
             console.log(error.status + error.reason);
             return error;
         }
+
+        myUtil.logEvent(`User ${userId} just logged a jab for ${jabType}!`);
 
         return await jabRepo.createJab(date, jabType, jabDose, userId).catch(err => console.log(err));
     }

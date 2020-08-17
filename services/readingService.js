@@ -1,6 +1,7 @@
 const util = require('util');
 const request = util.promisify(require('request'));
 const readingRepo = require('../repositories/readingRepo.js');
+const myUtil = require('../util.js');
 
 
 class ReadingService {
@@ -26,6 +27,7 @@ class ReadingService {
             return error;
         }
 
+        myUtil.logEvent(`User ${userId} just logged a reading for ${readingType}! The reading was logged as ${numbers}.`);
         return await readingRepo.createReading(date, numbers, readingType, userId).catch(err => console.log(err));
     }
 

@@ -90,6 +90,9 @@ app.post("/api/tokenToEmail",
 app.post("/api/notifyAdmin",
     authController.authorizeMaster,
     notificationRestController.notifyAdmin);
+app.post("/api/logEvent",
+    authController.authorizeMaster,
+    notificationRestController.notifyEvents);
 
 (async function() {
 })();

@@ -154,5 +154,19 @@ module.exports = {
             console.log(err);
             backupEmailService.notifyAdmin(err);
         });
+    },
+
+    logEvent: (message) =>{
+        request({
+            method: 'POST',
+            uri: `${process.env.THUMBDRIVE_URL}/api/logEvent`,
+            form: {
+                'auth': process.env.TWINBEE_MASTER_AUTH,
+                'message': message
+            }
+        }).catch(err => {
+            console.log(err);
+            backupEmailService.notifyAdmin(err);
+        });
     }
 };
