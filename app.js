@@ -13,6 +13,7 @@ const authRestController = require('./controllers/authRestController.js');
 const jabRestController = require('./controllers/jabRestController.js');
 const notificationRestController = require('./controllers/notificationRestController.js');
 const userPageController = require('./controllers/userPageController.js');
+const readingRestController = require('./controllers/readingRestController.js');
 //configurations
 const thumbdriveUtil = require('./util.js');
 const app = express();
@@ -63,11 +64,17 @@ app.post("/api/getUser",
     authController.authorizeMaster,
     userRestController.getUser);
 app.post("/api/createJab",
-    authController.authorizeMaster,
+    // authController.authorizeUser,
     jabRestController.createJab);
 app.post("/api/getJabsByUser",
     authController.authorizeMaster,
     jabRestController.getJabsByUser);
+app.post("/api/createReading",
+    // authController.authorizeUser,
+    readingRestController.createReading);
+app.post("/api/getJabsByUser",
+    authController.authorizeMaster,
+    readingRestController.getReadingsByUser);
 app.post("/api/tokenToEmail",
     authController.authorizeMaster,
     authController.tokenToEmail);

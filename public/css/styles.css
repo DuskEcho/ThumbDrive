@@ -32,11 +32,28 @@ header{
 
 }
 
+.interface-input{
+    height: 6vh;
+    font-size: xx-large;
+    width: 20vw;
+}
+
+.report-table{
+    background-color: white;
+    border-radius: 8px;
+    font-size: xx-large;
+
+    margin-top:15px;
+    margin-bottom: 15px;
+    max-height: 14vh;
+    overflow-y: scroll;
+}
+
 .type-select {
-    height: 8vh;
+    height: 6vh;
     font-size: xx-large;
     display: inline;
-    margin-left: 10vw;
+    margin-left: 5vw;
     width: min-content;
 }
 

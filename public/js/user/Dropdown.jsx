@@ -6,14 +6,21 @@ class Dropdown extends React.Component {
         super(props);
     }
 
-    generateOptions(){
-        return options;
-    }
-
-
 
     render() {
-        return (<select className={"type-select form-control"} onChange={this.props.onChange}>{this.props.options}</select>);
+        let totalSelect = <select
+            ref={`${this.props.type}Dropdown`}
+            onLoad={() => {
+                this.props.change(this.refs[`${this.props.type}Dropdown`].value)
+            }}
+            onChange={(e) => {
+                this.props.change(e.target.value)
+            }}
+            className={"type-select form-control"}>
+            {this.props.options}
+        </select>;
+
+        return totalSelect;
     }
 }
 

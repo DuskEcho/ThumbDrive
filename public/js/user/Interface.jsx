@@ -15,38 +15,73 @@ class Interface extends React.Component {
     constructor(props) {
         super(props);
 
-        this.processSumit = this
+        this.processSubmit = this
             .processSubmit
             .bind(this);
         this.determineInput = this
             .determineInput
             .bind(this);
+        this.updateInputValue = this
+            .updateInputValue
+            .bind(this);
+        this.updateDropdownValue = this
+            .updateDropdownValue
+            .bind(this);
+        this.generateOptions = this
+            .generateOptions
+            .bind(this);
+        this.state = {
+            dropdownValue: this.props.dropdownOptionValues ? this.props.dropdownOptionValues[0] : null,
+            inputValue: null
+        }
     }
 
-    processSubmit(stringifiedBody){
+    updateInputValue(val){
+        this.state.inputValue = val;
+        console.log(val);
+    }
+
+    updateDropdownValue(val){
+        this.state.dropdownValue = val;
+        console.log(val);
+    }
+
+    processSubmit(){
+       let body = JSON.stringify({
+            type: this.state.dropdownValue,
+            value: this.state.inputValue,
+           date: moment().format("YYYY-MM-DD HH:mm:ss")
+        })
         const options = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: stringifiedBody
+            body: body
         };
         fetch(this.props.apiRoute, options)
-            .then(response => response.json())
-            .then(data => setPostId(data.id))
-            .then(()=>this.props.logChange());
+            .then(response => console.log(response))
     }
 
     determineInput(){
         if (this.props.hasInput){
-            return (<input type={this.props.inputType}/>)
+            let idValue = `${this.props.type}Input`
+            return (<input id={idValue} className={"interface-input"} onChange={()=>{this.updateInputValue(document.getElementById(idValue).value)}} type={this.props.inputType}/>)
         }
         return
     }
 
-    render() {
+    generateOptions(){
+        let options = [];
+        for (let i = 0; i < this.props.dropdownOptionValues.length; ++i) {
+            options.push(<option value={this.props.dropdownOptionValues[i]}>{this.props.dropdownOptionTexts[i]}</option>)
+        }
+        return options;
+    }
+
+    render(){
         return (
             <div className={"interface"}>
                 <LogButton action={this.processSubmit} text={this.props.type}/>
-                <Dropdown options={this.props.dropdownOptions}/>
+                <Dropdown type={this.props.type} change={this.updateDropdownValue} options={this.generateOptions()}/>
                 {this.determineInput()}
             </div>
         );

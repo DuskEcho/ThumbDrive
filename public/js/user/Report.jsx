@@ -4,6 +4,7 @@ import React from 'react';
 class Report extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {};
         this.getThead = this
             .getTHead
             .bind(this);
@@ -13,15 +14,28 @@ class Report extends React.Component {
     }
 
     getTHead(){
-        return <tr>{this.props.thList}</tr>
+        let thList = [];
+        for (let title of this.props.titles){
+            thList.push(<th>{title}</th>)
+        }
+
+        return <tr>{thList}</tr>
     }
     getTBody(){
-        return <tr>{this.props.trList}</tr>
+        let rowsList = [];
+        for (let row of this.props.rows){
+            let tds = [];
+            for (let key in row){
+                tds.push(<td>{row[key]}</td>);
+            }
+            rowsList.push(<tr>{tds}</tr>)
+        }
+        return rowsList;
     }
 
     render() {
         this.state.needsChange = false;
-        return (<table>{this.getTHead()}{this.getTBody()}</table>);
+        return (<div className={"report-table"}><table className={"table"}>{this.getTHead()}{this.getTBody()}</table></div>);
     }
 }
 

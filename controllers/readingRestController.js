@@ -10,8 +10,8 @@ module.exports = {
      * creates a reading.
      * looks for data in the form {
      *     date: date,
-     *     readingType: reading type,
-     *     numbers: reading's value
+     *     type: reading type,
+     *     value: reading's value
      * }
      *
      * @returns {Promise<[]>}
@@ -21,7 +21,7 @@ module.exports = {
 
         let validationResult = await validateParams(
             {
-                "present": ["date", "readingType", "numbers"]
+                "present": ["date", "type", "value"]
             }, req.body);
         if (!validationResult.isValid) {
             res.status(400).send({error: "Bad Request", code: 400, details: validationResult.message});
@@ -32,7 +32,7 @@ module.exports = {
                 notifyAdmin(err.toString())
             });
             let user = await authService.getUserFromEmail(email);
-            res.send(await readingService.createReading(req.body.date, req.body.numbers, req.body.readingType, user.id));
+            res.send(await readingService.createReading(req.body.date, req.body.value, req.body.type, user.id));
         }
     },
 
