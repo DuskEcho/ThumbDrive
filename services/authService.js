@@ -95,7 +95,7 @@ class AuthService {
             return false;
         }
 
-        for (let i = 0; i < makers.length; ++i) {
+        for (let i = 0; i < users.length; ++i) {
             if (users[i].email.toLowerCase() === email.toLowerCase()) {
                 return true
             }
