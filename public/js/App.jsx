@@ -34,7 +34,7 @@ class App extends React.Component {
             method: 'POST',
             headers: {'Content-Type': 'application/json'}
         };
-        fetch(`http://www.thumbdrive.app/api/getMyJabs`, options)
+        fetch(`https://www.thumbdrive.app/api/getMyJabs`, options)
             .then(response => response.json())
             .then(data => {
                 console.log(data)
@@ -52,7 +52,7 @@ class App extends React.Component {
             method: 'POST',
             headers: {'Content-Type': 'application/json'}
         };
-        fetch(`http://www.thumbdrive.app/api/getMyReadings`, options)
+        fetch(`https://www.thumbdrive.app/api/getMyReadings`, options)
             .then(response => response.json())
             .then(data => {
                 console.log(data);
@@ -72,11 +72,11 @@ class App extends React.Component {
         }
 
         return (<div>
-            <Interface type={"Jab"} apiRoute={`http://www.thumbdrive.app/api/createJab`}
+            <Interface type={"Jab"} apiRoute={`https://www.thumbdrive.app/api/createJab`}
                        dropdownOptionValues={["insulin16", "insulin8"]}
                        dropdownOptionTexts={["Insulin 16 Units", "Insulin 8 Units"]}
                        hasInput={false} submitComplete={this.updateJabs}/>
-            <Interface type={"Reading"} apiRoute={`http://www.thumbdrive.app/api/createReading`} hasInput={true}
+            <Interface type={"Reading"} apiRoute={`https://www.thumbdrive.app/api/createReading`} hasInput={true}
                        inputType={"number"} dropdownOptionValues={["bloodGlucose"]}
                        dropdownOptionTexts={["Blood Glucose"]}
                        submitComplete={this.updateReadings}/>
