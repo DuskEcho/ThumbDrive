@@ -64,7 +64,7 @@ module.exports = {
             req.googlePayload = await authService.getPayloadFromToken(req.query.token);
             let email = req.googlePayload['email'];
             let newSession = await authService.updateValidatedUserSession(email);
-            req.session.twinbeeId = newSession.id;
+            req.session.thumbdriveId = newSession.id;
             userPageController.renderLanding(req, res);
         } else {
             landingPageController.renderForbidden(req, res);
