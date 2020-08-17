@@ -66,15 +66,21 @@ app.post("/api/getUser",
 app.post("/api/createJab",
     // authController.authorizeUser,
     jabRestController.createJab);
+app.post("/api/getMyJabs",
+    //   authController.authorizeMaster,
+    jabRestController.getMyJabs);
 app.post("/api/getJabsByUser",
-    authController.authorizeMaster,
+    //   authController.authorizeUser,
     jabRestController.getJabsByUser);
 app.post("/api/createReading",
     // authController.authorizeUser,
     readingRestController.createReading);
-app.post("/api/getJabsByUser",
-    authController.authorizeMaster,
+app.post("/api/getReadingsByUser",
+    //   authController.authorizeMaster,
     readingRestController.getReadingsByUser);
+app.post("/api/getMyReadings",
+    //   authController.authorizeUser,
+    readingRestController.getMyReadings);
 app.post("/api/tokenToEmail",
     authController.authorizeMaster,
     authController.tokenToEmail);

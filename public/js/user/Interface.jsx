@@ -58,7 +58,10 @@ class Interface extends React.Component {
             body: body
         };
         fetch(this.props.apiRoute, options)
-            .then(response => console.log(response))
+            .then(response => {
+                console.log(response)
+                this.props.submitComplete();
+            })
     }
 
     determineInput(){

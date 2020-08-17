@@ -1,41 +1,56 @@
 'use strict';
 import React from 'react';
+import moment from 'moment';
 
 class Report extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {};
-        this.getThead = this
-            .getTHead
+        this.state = {
+            thead: null,
+            tbody: null
+        };
+        this.setTHead = this
+            .setTHead
             .bind(this);
-        this.getTBody = this
-            .getTBody
+        this.setTBody = this
+            .setTBody
             .bind(this);
     }
 
-    getTHead(){
+    setTHead() {
         let thList = [];
-        for (let title of this.props.titles){
+        for (let title of this.props.titles) {
             thList.push(<th>{title}</th>)
         }
 
-        return <tr>{thList}</tr>
+        this.state.thead = <tr>{thList}</tr>
     }
-    getTBody(){
+
+    setTBody() {
         let rowsList = [];
-        for (let row of this.props.rows){
+        console.log("ROWS")
+        console.log(this.props.rows)
+        for (let row of this.props.rows) {
             let tds = [];
-            for (let key in row){
-                tds.push(<td>{row[key]}</td>);
-            }
+            tds.push(<td>{row[this.props.relevant]}</td>);
+            tds.push(<td>{moment(row.date).format("MM-DD-YY HH:mm:ss")}</td>);
             rowsList.push(<tr>{tds}</tr>)
         }
-        return rowsList;
+        console.log("FINAL ROWS")
+        console.log(rowsList)
+        this.state.tbody = rowsList;
     }
 
     render() {
-        this.state.needsChange = false;
-        return (<div className={"report-table"}><table className={"table"}>{this.getTHead()}{this.getTBody()}</table></div>);
+        this.setTHead();
+        this.setTBody();
+        return (
+            <div key={JSON.stringify(this.props.rows)}>
+                <div className={"report-label"}><label>{this.props.name}</label></div>
+                <div className={"report-table"}>
+                    <table className={"table"}>{this.state.thead}{this.state.tbody}</table>
+                </div>
+            </div>);
     }
 }
 

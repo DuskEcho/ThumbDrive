@@ -60,7 +60,33 @@ module.exports = {
                 console.log(err);
                 notifyAdmin(err.toString())
             });
-            let user = await authService.getUserFromEmail("master@cipher-sec.com");
+            let user = await authService.getUserFromEmail(email);
+            res.send(await jabService.getJabsByUser(user.id));
+        }
+    },
+
+    /**
+     * ENDPOINT: /api/getMyJabs
+     *
+     * @returns {Promise<>}
+     */
+    getMyJabs: async (req, res) => {
+        console.log("Dereferencing cookie...");
+        console.log(req.body);
+
+        let validationResult = await validateParams(
+            {
+                "present": []
+            }, req.body);
+        if (!validationResult.isValid) {
+            res.status(400).send({error: "Bad Request", code: 400, details: validationResult.message});
+            notifyAdmin({error: "Bad Request", code: 400, details: validationResult.message});
+        } else {
+            let email = await authService.getEmailFromCookie(req.session).catch(err => {
+                console.log(err);
+                notifyAdmin(err.toString())
+            });
+            let user = await authService.getUserFromEmail(email);
             res.send(await jabService.getJabsByUser(user.id));
         }
     }

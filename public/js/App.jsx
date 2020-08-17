@@ -11,70 +11,83 @@ class App extends React.Component {
         super(props);
         this.state = {
             reportNeedsUpdate: false,
-            reportData: {}
+            jabReportData: [],
+            readingReportData: [],
+            readingsLoading: false,
+            jabsLoading: false
+
         };
-        this.updateReport = this
-            .updateReport
+        this.updateJabs = this
+            .updateJabs
             .bind(this);
+        this.updateReadings = this
+            .updateReadings
+            .bind(this);
+        this.updateJabs();
+        this.updateReadings();
     }
 
 
-
-    updateReport(){
-
+    updateJabs() {
+        this.state.jabsLoading = true;
         const options = {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' }
+            headers: {'Content-Type': 'application/json'}
         };
-        fetch(`http://www.thumbdrive.app/api/getJabsByUser`, requestOptions)
+        fetch(`http://localhost:8080/api/getMyJabs`, options)
             .then(response => response.json())
-            .then(data => console.log(data));
+            .then(data => {
+                console.log(data)
+                this.setState({
+                    jabReportData: data,
+                    jabsLoading: false
+                })
+                console.log(this.state);
+            });
+    }
+
+    updateReadings() {
+        this.state.readingsLoading = true;
+        const options = {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'}
+        };
+        fetch(`http://localhost:8080/api/getMyReadings`, options)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                this.setState({
+                    readingReportData: data,
+                    readingsLoading: false
+                })
+                console.log(this.state);
+            });
     }
 
     render() {
 
+        if (this.state.reportNeedsUpdate) {
+            this.updateJabs();
+            this.updateReadings();
+        }
 
         return (<div>
-            <Interface type={"Jab"} apiRoute={`http://localhost:8080/api/createJab`} dropdownOptionValues={["insulin16", "insulin8"]} dropdownOptionTexts={["Insulin 16 Units", "Insulin 8 Units"]}
-                       hasInput={false} onSubmit={this.updateReport}/>
-            <Interface type={"Reading"} apiRoute={`http://localhost:8080/api/createReading`} hasInput={true} inputType={"number"}  dropdownOptionValues={["bloodGlucose"]} dropdownOptionTexts={["Blood Glucose"]}/>
+            <Interface type={"Jab"} apiRoute={`http://localhost:8080/api/createJab`}
+                       dropdownOptionValues={["insulin16", "insulin8"]}
+                       dropdownOptionTexts={["Insulin 16 Units", "Insulin 8 Units"]}
+                       hasInput={false} submitComplete={this.updateJabs}/>
+            <Interface type={"Reading"} apiRoute={`http://localhost:8080/api/createReading`} hasInput={true}
+                       inputType={"number"} dropdownOptionValues={["bloodGlucose"]}
+                       dropdownOptionTexts={["Blood Glucose"]}
+                       submitComplete={this.updateReadings}/>
 
-            <label className={"report-label"}>Insulin Jabs:</label>
-            <Report titles={["1", "a", "2"]} rows={[
-                {obj1key1:"value1", obj1key2:"value2", obj1key3:"value3"},
-                {obj2key1:"value1", obj2key2:"value2", obj2key3:"value3"},
-                {obj1key1:"value1", obj1key2:"value2", obj1key3:"value3"},
-                {obj2key1:"value1", obj2key2:"value2", obj2key3:"value3"},
-                {obj1key1:"value1", obj1key2:"value2", obj1key3:"value3"},
-                {obj2key1:"value1", obj2key2:"value2", obj2key3:"value3"},
-                {obj1key1:"value1", obj1key2:"value2", obj1key3:"value3"},
-                {obj2key1:"value1", obj2key2:"value2", obj2key3:"value3"},
-                {obj1key1:"value1", obj1key2:"value2", obj1key3:"value3"},
-                {obj2key1:"value1", obj2key2:"value2", obj2key3:"value3"},
-                {obj1key1:"value1", obj1key2:"value2", obj1key3:"value3"},
-                {obj2key1:"value1", obj2key2:"value2", obj2key3:"value3"},
-                {obj1key1:"value1", obj1key2:"value2", obj1key3:"value3"},
-                {obj2key1:"value1", obj2key2:"value2", obj2key3:"value3"},
-                {obj3key1:"value1", obj3key2:"value2", obj3key3:"value3"}
-            ]}></Report>
-            <label className={"report-label"}>Blood Glucose:</label>
-            <Report titles={["1", "a", "2"]} rows={[
-                {obj1key1:"value1", obj1key2:"value2", obj1key3:"value3"},
-                {obj2key1:"value1", obj2key2:"value2", obj2key3:"value3"},
-                {obj1key1:"value1", obj1key2:"value2", obj1key3:"value3"},
-                {obj2key1:"value1", obj2key2:"value2", obj2key3:"value3"},
-                {obj1key1:"value1", obj1key2:"value2", obj1key3:"value3"},
-                {obj2key1:"value1", obj2key2:"value2", obj2key3:"value3"},
-                {obj1key1:"value1", obj1key2:"value2", obj1key3:"value3"},
-                {obj2key1:"value1", obj2key2:"value2", obj2key3:"value3"},
-                {obj1key1:"value1", obj1key2:"value2", obj1key3:"value3"},
-                {obj2key1:"value1", obj2key2:"value2", obj2key3:"value3"},
-                {obj1key1:"value1", obj1key2:"value2", obj1key3:"value3"},
-                {obj2key1:"value1", obj2key2:"value2", obj2key3:"value3"},
-                {obj1key1:"value1", obj1key2:"value2", obj1key3:"value3"},
-                {obj2key1:"value1", obj2key2:"value2", obj2key3:"value3"},
-            {obj3key1:"value1", obj3key2:"value2", obj3key3:"value3"}
-        ]}></Report>
+
+            <Report name={"Insulin Jabs"} titles={["Type", "Time"]}
+                    rows={this.state.jabReportData}
+                    relevant={"jabType"}></Report>
+            <Report name={"Blood Glucose Readings"} titles={["Reading", "Time"]}
+                    rows={this.state.readingReportData}
+                    relevant={"numbers"}></Report>
         </div>);
     }
 }
