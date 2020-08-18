@@ -22,7 +22,7 @@ module.exports = {
 
         let validationResult = await validateParams(
             {
-                "present": ["date", "type"]
+                "present": ["date", "type", "value"]
             }, req.body);
         if (!validationResult.isValid) {
             res.status(400).send({error: "Bad Request", code: 400, details: validationResult.message});
