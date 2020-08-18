@@ -55,8 +55,8 @@ class App extends React.Component {
         fetch(`https://www.thumbdrive.app/api/getMyReadings`, options)
             .then(response => response.json())
             .then(data => {
-                for (var item of data){
-                    item.jabCombo = `${item.jabType} ${item.jabDose}`
+                for (var i = 0; i < data.length; ++i){
+                    data[i].jabCombo = `${data[i].jabType} ${data[i].jabDose}`;
                 }
                 console.log(data);
                 this.setState({
