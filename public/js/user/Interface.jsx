@@ -61,6 +61,11 @@ class Interface extends React.Component {
             .then(response => {
                 console.log(response)
                 this.props.submitComplete();
+                let field = document.getElementById(`${this.props.type}Input`);
+                if (field.value.length > 0){
+                    alert("Logged!");
+                }
+                document.getElementById(`${this.props.type}Input`).value = "";
             })
     }
 
