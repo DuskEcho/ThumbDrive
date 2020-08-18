@@ -76,8 +76,8 @@ class App extends React.Component {
 
         return (<div>
             <Interface type={"Jab"} apiRoute={`https://www.thumbdrive.app/api/createJab`}
-                       dropdownOptionValues={["insulin16", "insulin8"]}
-                       dropdownOptionTexts={["Insulin 16 Units", "Insulin 8 Units"]}
+                       dropdownOptionValues={["insulin"]}
+                       dropdownOptionTexts={["Insulin"]}
                        hasInput={true} inputType={"text"} submitComplete={this.updateJabs}/>
             <Interface type={"Reading"} apiRoute={`https://www.thumbdrive.app/api/createReading`} hasInput={true}
                        inputType={"number"} dropdownOptionValues={["bloodGlucose"]}
