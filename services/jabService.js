@@ -27,7 +27,7 @@ class JabService {
             return error;
         }
 
-        myUtil.logEvent(`User ${userId} just logged a jab for ${jabType}!`);
+        myUtil.logEvent(`User ${userId} just logged a jab for ${jabType} ${jabDose}!`);
 
         return await jabRepo.createJab(date, jabType, jabDose, userId).catch(err => console.log(err));
     }
