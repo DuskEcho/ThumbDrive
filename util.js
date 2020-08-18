@@ -112,8 +112,6 @@ module.exports = {
     },
 
     dereferenceSession: async (session) =>{
-        console.log("SESSION AT DEREFRENCE TIME");
-        console.log(session);
         let response = await request({
             method: 'POST',
             uri: `${process.env.THUMBDRIVE_URL}/api/dereferenceSession`,

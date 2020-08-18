@@ -34,7 +34,7 @@ module.exports = {
             });
             let user = await authService.getUserFromEmail(email);
 
-            res.send(await jabService.createJab(req.body.date, req.body.type, "see type", user.id));
+            res.send(await jabService.createJab(req.body.date, req.body.type, req.body.value, user.id));
         }
     },
 

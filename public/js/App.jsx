@@ -55,6 +55,9 @@ class App extends React.Component {
         fetch(`https://www.thumbdrive.app/api/getMyReadings`, options)
             .then(response => response.json())
             .then(data => {
+                for (var item of data){
+                    item.jabCombo = `${item.jabType} ${item.jabDose}`
+                }
                 console.log(data);
                 this.setState({
                     readingReportData: data,
@@ -75,7 +78,7 @@ class App extends React.Component {
             <Interface type={"Jab"} apiRoute={`https://www.thumbdrive.app/api/createJab`}
                        dropdownOptionValues={["insulin16", "insulin8"]}
                        dropdownOptionTexts={["Insulin 16 Units", "Insulin 8 Units"]}
-                       hasInput={false} submitComplete={this.updateJabs}/>
+                       hasInput={true} inputType={"text"} submitComplete={this.updateJabs}/>
             <Interface type={"Reading"} apiRoute={`https://www.thumbdrive.app/api/createReading`} hasInput={true}
                        inputType={"number"} dropdownOptionValues={["bloodGlucose"]}
                        dropdownOptionTexts={["Blood Glucose"]}
@@ -84,7 +87,7 @@ class App extends React.Component {
 
             <Report name={"Insulin Jabs"} titles={["Type", "Time"]}
                     rows={this.state.jabReportData}
-                    relevant={"jabType"}></Report>
+                    relevant={"jabCombo"}></Report>
             <Report name={"Blood Glucose Readings"} titles={["Reading", "Time"]}
                     rows={this.state.readingReportData}
                     relevant={"numbers"}></Report>
