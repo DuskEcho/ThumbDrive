@@ -55,9 +55,6 @@ class App extends React.Component {
         fetch(`https://www.thumbdrive.app/api/getMyReadings`, options)
             .then(response => response.json())
             .then(data => {
-                for (var i = 0; i < data.length; ++i){
-                    data[i].jabCombo = `${data[i].jabType} ${data[i].jabDose}`;
-                }
                 console.log(data);
                 this.setState({
                     readingReportData: data,
@@ -87,7 +84,7 @@ class App extends React.Component {
 
             <Report name={"Insulin Jabs"} titles={["Type", "Time"]}
                     rows={this.state.jabReportData}
-                    relevant={"jabCombo"}></Report>
+                    relevant={"jabDose"}></Report>
             <Report name={"Blood Glucose Readings"} titles={["Reading", "Time"]}
                     rows={this.state.readingReportData}
                     relevant={"numbers"}></Report>
